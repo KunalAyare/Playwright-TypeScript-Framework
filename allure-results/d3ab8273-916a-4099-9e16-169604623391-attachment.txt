@@ -1,0 +1,4 @@
+Google opened successfully
+Title verified
+Typed in search box
+Search results loaded

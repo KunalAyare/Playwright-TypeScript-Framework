@@ -1,20 +1,19 @@
 import {test, expect} from '@playwright/test';
 
-test('login using getByRole', async ({page}) => {
+test('verify text on inventory page', async ({ page }) => {
 
-     // Step 1: Open saucedemo
-    await page.goto('https://www.saucedemo.com/');
+  // Step 1: Login
+  await page.goto('https://www.saucedemo.com');
+  await page.locator('#user-name').fill('standard_user');
+  await page.locator('#password').fill('secret_sauce');
+  await page.locator('#login-button').click();
 
-     // Step 2: Fill username and password
-    await page.getByPlaceholder('username').fill('standard_user');
-    await page.getByPlaceholder('password').fill('secret_sauce');
+  // Step 2: Verify text on page
+  await expect(page.getByText('Swag Labs')).toBeVisible();
+  console.log('Swag Labs text found');
 
-     // Step 3:  Click login button by role
-    await page.getByRole('button' , {name: 'Login'}).click();
-
-        // Step 4: Verify login
-    await expect(page).toHaveURL(/inventory/);
-    console.log('Login successful using getByRole');
+  await page.waitForTimeout(3000);
 
 });
+
 
